@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  # Selector should match the labels associated with pods
+  selector:
+    matchLabels:
+    # This is for replica set to count how many replicas of replicaset is running
+      tier: frontend
+  # Using template you do not need to specify apiVersion and Kind
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v3
